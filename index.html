@@ -40,7 +40,6 @@
 </head>
 <body class="antialiased">
 
-    <!-- ... existing header and main content ... -->
     <header id="header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 shadow-sm">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <h1 class="text-2xl font-bold text-gray-800">
@@ -251,7 +250,7 @@
                         <input type="email" name="email" placeholder="이메일 주소" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
                         <textarea name="message" placeholder="문의 내용" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" required></textarea>
                     </div>
-                    <div id="form-error" class="text-red-500 text-sm mt-4 hidden"></div>
+                    <div id="form-error" class="hidden mt-4 p-3 bg-red-100 text-red-700 text-sm rounded-lg"></div>
                     <button type="submit" id="submit-btn" class="w-full mt-6 bg-indigo-600 text-white font-bold py-3 rounded-lg hover:bg-indigo-700 transition-colors flex items-center justify-center">
                         <span id="submit-btn-text">제출하기</span>
                         <div id="submit-spinner" class="animate-spin rounded-full h-5 w-5 border-b-2 border-white ml-2 hidden"></div>
@@ -269,7 +268,7 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // ... existing chart, navigation, and tab logic ...
+        // Navigation & Observer
         const navLinks = document.querySelectorAll('.nav-link');
         const sections = document.querySelectorAll('main section');
         const observerOptions = { root: null, rootMargin: '0px', threshold: 0.4 };
@@ -299,6 +298,7 @@
             });
         });
 
+        // Tabs
         const tabButtons = document.querySelectorAll('.tab-btn');
         const tabPanes = document.querySelectorAll('.tab-pane');
 
@@ -313,7 +313,7 @@
                 });
             });
         });
-
+        
         // Modal Logic
         const modal = document.getElementById('contact-modal');
         const modalContainer = modal.querySelector('.modal-container');
@@ -370,7 +370,12 @@
                 method: 'POST',
                 body: formData
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`서버 응답 오류: ${response.statusText}`);
+                }
+                return response.json();
+            })
             .then(data => {
                 if (data.success) {
                     modalFormContent.classList.add('hidden');
@@ -425,3 +430,4 @@
     </script>
 </body>
 </html>
+
