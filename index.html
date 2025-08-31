@@ -19,108 +19,28 @@
     -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
-        body {
-            font-family: 'Noto Sans KR', sans-serif;
-            background-color: #F9FAFB;
-            color: #1F2937;
-        }
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 300px;
-            max-height: 400px;
-        }
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 350px;
-            }
-        }
-        .nav-link {
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-        }
-        .nav-link:after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #6366F1;
-            transition: width 0.3s ease;
-        }
-        .nav-link:hover:after, .nav-link.active:after {
-            width: 100%;
-        }
-        .nav-link.active, .nav-link:hover {
-            color: #6366F1;
-        }
-        .card {
-            background-color: white;
-            border-radius: 1rem;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border-top-width: 4px;
-            border-color: transparent;
-        }
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-        }
-        .tab-btn.active {
-            border-color: #6366F1;
-            color: #6366F1;
-            background-color: #EEF2FF;
-        }
-        .timeline-item {
-            transition: all 0.3s ease;
-        }
-        .timeline-item:hover {
-            transform: translateX(5px);
-        }
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -30px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background-color: #6366F1;
-            border: 3px solid #F9FAFB;
-        }
-        .timeline-item:not(:last-child)::after {
-            content: '';
-            position: absolute;
-            left: -21px;
-            top: 50%;
-            width: 2px;
-            height: 100%;
-            background-color: #D1D5DB;
-            z-index: -1;
-        }
-        .icon-bg {
-            width: 64px;
-            height: 64px;
-            border-radius: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            font-size: 1.875rem;
-            line-height: 2.25rem;
-            font-weight: 700;
-        }
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #F9FAFB; color: #1F2937; }
+        .chart-container { position: relative; width: 100%; max-width: 600px; margin-left: auto; margin-right: auto; height: 300px; max-height: 400px; }
+        @media (min-width: 768px) { .chart-container { height: 350px; } }
+        .nav-link { transition: all 0.3s ease; cursor: pointer; position: relative; }
+        .nav-link:after { content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 50%; transform: translateX(-50%); background-color: #6366F1; transition: width 0.3s ease; }
+        .nav-link:hover:after, .nav-link.active:after { width: 100%; }
+        .nav-link.active, .nav-link:hover { color: #6366F1; }
+        .card { background-color: white; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease; border-top-width: 4px; border-color: transparent; }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); }
+        .tab-btn.active { border-color: #6366F1; color: #6366F1; background-color: #EEF2FF; }
+        .timeline-item { transition: all 0.3s ease; }
+        .timeline-item:hover { transform: translateX(5px); }
+        .timeline-item::before { content: ''; position: absolute; left: -30px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; border-radius: 50%; background-color: #6366F1; border: 3px solid #F9FAFB; }
+        .timeline-item:not(:last-child)::after { content: ''; position: absolute; left: -21px; top: 50%; width: 2px; height: 100%; background-color: #D1D5DB; z-index: -1; }
+        .icon-bg { width: 64px; height: 64px; border-radius: 1rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 1.875rem; line-height: 2.25rem; font-weight: 700; }
+        .modal-overlay { transition: opacity 0.3s ease; }
+        .modal-container { transition: transform 0.3s ease, opacity 0.3s ease; }
     </style>
 </head>
 <body class="antialiased">
 
+    <!-- ... existing header and main content ... -->
     <header id="header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 shadow-sm">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <h1 class="text-2xl font-bold text-gray-800">
@@ -302,161 +222,206 @@
                         </div>
                     </div>
                 </div>
-                 <button onclick="window.location.href='mailto:contact@interview.ai'" class="mt-12 px-8 py-3 bg-cyan-300 text-indigo-800 font-bold rounded-full hover:bg-white transition-all transform hover:scale-105 shadow-lg">
+                 <button id="open-modal-btn" class="mt-12 px-8 py-3 bg-cyan-300 text-indigo-800 font-bold rounded-full hover:bg-white transition-all transform hover:scale-105 shadow-lg">
                     투자 문의하기
                 </button>
             </div>
         </section>
 
     </main>
-
     <footer class="bg-gray-100 py-8">
         <div class="container mx-auto px-6 text-center text-gray-500">
             &copy; 2025 Interview.AI Inc. All Rights Reserved.
         </div>
     </footer>
 
+    <!-- Contact Modal -->
+    <div id="contact-modal" class="modal-overlay fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 hidden opacity-0">
+        <div class="modal-container bg-white w-full max-w-lg rounded-2xl shadow-2xl p-8 transform scale-95 opacity-0">
+            <div id="modal-form-content">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800">투자 문의하기</h2>
+                    <button id="close-modal-btn" class="text-gray-400 hover:text-gray-600 text-3xl leading-none">&times;</button>
+                </div>
+                <p class="text-gray-600 mb-6">Interview.AI의 비전에 함께해주셔서 감사합니다. 아래 양식을 작성해주시면 검토 후 신속하게 연락드리겠습니다.</p>
+                <form id="contact-form">
+                    <div class="space-y-4">
+                        <input type="text" name="company" placeholder="회사/기관명" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+                        <input type="text" name="name" placeholder="성함" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+                        <input type="email" name="email" placeholder="이메일 주소" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+                        <textarea name="message" placeholder="문의 내용" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" required></textarea>
+                    </div>
+                    <div id="form-error" class="text-red-500 text-sm mt-4 hidden"></div>
+                    <button type="submit" id="submit-btn" class="w-full mt-6 bg-indigo-600 text-white font-bold py-3 rounded-lg hover:bg-indigo-700 transition-colors flex items-center justify-center">
+                        <span id="submit-btn-text">제출하기</span>
+                        <div id="submit-spinner" class="animate-spin rounded-full h-5 w-5 border-b-2 border-white ml-2 hidden"></div>
+                    </button>
+                </form>
+            </div>
+            <div id="modal-success-content" class="hidden text-center py-10">
+                 <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">✓</div>
+                 <h2 class="text-2xl font-bold text-gray-800 mb-2">문의가 성공적으로 접수되었습니다.</h2>
+                 <p class="text-gray-600">입력하신 연락처로 빠른 시일 내에 회신드리겠습니다. 감사합니다.</p>
+                 <button id="close-success-btn" class="mt-6 w-full bg-gray-200 text-gray-700 font-bold py-3 rounded-lg hover:bg-gray-300 transition-colors">닫기</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const navLinks = document.querySelectorAll('.nav-link');
-            const sections = document.querySelectorAll('main section');
-
-            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.4 };
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const currentId = entry.target.id;
-                        navLinks.forEach(link => {
-                            link.classList.toggle('active', link.getAttribute('data-target') === currentId);
-                        });
-                    }
-                });
-            }, observerOptions);
-            sections.forEach(section => observer.observe(section));
-
-            navLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const targetId = e.target.getAttribute('data-target');
-                    const targetSection = document.getElementById(targetId);
-                    if (targetSection) {
-                        window.scrollTo({
-                            top: targetSection.offsetTop - 70,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-
-            const tabButtons = document.querySelectorAll('.tab-btn');
-            const tabPanes = document.querySelectorAll('.tab-pane');
-
-            tabButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const tabId = button.getAttribute('data-tab');
-                    tabButtons.forEach(btn => btn.classList.remove('active'));
-                    button.classList.add('active');
-                    tabPanes.forEach(pane => {
-                        pane.classList.toggle('hidden', pane.getAttribute('data-tab') !== tabId);
-                        pane.classList.toggle('active', pane.getAttribute('data-tab') === tabId);
+    document.addEventListener('DOMContentLoaded', function() {
+        // ... existing chart, navigation, and tab logic ...
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('main section');
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.4 };
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const currentId = entry.target.id;
+                    navLinks.forEach(link => {
+                        link.classList.toggle('active', link.getAttribute('data-target') === currentId);
                     });
-                });
-            });
-            
-            Chart.defaults.font.family = "'Noto Sans KR', sans-serif";
-            Chart.defaults.plugins.tooltip.backgroundColor = '#333';
-            Chart.defaults.plugins.tooltip.titleFont = { size: 14, weight: 'bold' };
-            Chart.defaults.plugins.tooltip.bodyFont = { size: 12 };
-            Chart.defaults.plugins.tooltip.padding = 10;
-            Chart.defaults.plugins.tooltip.cornerRadius = 8;
-            
-            const marketSizeCtx = document.getElementById('marketSizeChart').getContext('2d');
-            new Chart(marketSizeCtx, {
-                type: 'bar',
-                data: {
-                    labels: ['2023', '2024', '2025', '2026(E)', '2027(E)'],
-                    datasets: [{
-                        label: '시장 규모 (십억 $)',
-                        data: [24.04, 25.91, 28.05, 30.82, 33.57],
-                        backgroundColor: 'rgba(99, 102, 241, 0.7)',
-                        borderColor: 'rgba(99, 102, 241, 1)',
-                        borderWidth: 1,
-                        borderRadius: 8,
-                        hoverBackgroundColor: 'rgba(99, 102, 241, 0.9)'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        y: { beginAtZero: true, grid: { color: '#e5e7eb' } },
-                        x: { grid: { display: false } }
-                    }
                 }
             });
+        }, observerOptions);
+        sections.forEach(section => observer.observe(section));
 
-            const targetAudienceCtx = document.getElementById('targetAudienceChart').getContext('2d');
-            new Chart(targetAudienceCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['신입 구직자', '경력 전환자', '유학생', '기타'],
-                    datasets: [{
-                        label: '타겟 고객층',
-                        data: [45, 30, 15, 10],
-                        backgroundColor: [
-                            'rgba(99, 102, 241, 0.8)',
-                            'rgba(45, 212, 191, 0.8)',
-                            'rgba(245, 158, 11, 0.8)',
-                            'rgba(239, 68, 68, 0.8)'
-                        ],
-                        borderColor: '#fff',
-                        borderWidth: 4,
-                        hoverOffset: 10
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    cutout: '60%',
-                    plugins: { legend: { position: 'bottom', labels: { padding: 20 } } }
-                }
-            });
-
-            const revenueCtx = document.getElementById('revenueChart').getContext('2d');
-            const gradient = revenueCtx.createLinearGradient(0, 0, 0, 300);
-            gradient.addColorStop(0, 'rgba(45, 212, 191, 0.5)');
-            gradient.addColorStop(1, 'rgba(45, 212, 191, 0)');
-            new Chart(revenueCtx, {
-                type: 'line',
-                data: {
-                    labels: ['2025(E)', '2026(E)', '2027(E)'],
-                    datasets: [{
-                        label: '예상 매출 (억원)',
-                        data: [5, 30, 100],
-                        fill: true,
-                        backgroundColor: gradient,
-                        borderColor: '#2DD4BF',
-                        tension: 0.4,
-                        pointBackgroundColor: '#2DD4BF',
-                        pointBorderColor: '#fff',
-                        pointBorderWidth: 2,
-                        pointRadius: 6,
-                        pointHoverRadius: 8
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        y: { beginAtZero: true, grid: { color: '#e5e7eb' } },
-                        x: { grid: { display: false } }
-                    }
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = e.target.getAttribute('data-target');
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
                 }
             });
         });
+
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabPanes = document.querySelectorAll('.tab-pane');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const tabId = button.getAttribute('data-tab');
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                tabPanes.forEach(pane => {
+                    pane.classList.toggle('hidden', pane.getAttribute('data-tab') !== tabId);
+                    pane.classList.toggle('active', pane.getAttribute('data-tab') === tabId);
+                });
+            });
+        });
+
+        // Modal Logic
+        const modal = document.getElementById('contact-modal');
+        const modalContainer = modal.querySelector('.modal-container');
+        const openModalBtn = document.getElementById('open-modal-btn');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+        const closeSuccessBtn = document.getElementById('close-success-btn');
+        const contactForm = document.getElementById('contact-form');
+        const modalFormContent = document.getElementById('modal-form-content');
+        const modalSuccessContent = document.getElementById('modal-success-content');
+        const submitBtn = document.getElementById('submit-btn');
+        const submitBtnText = document.getElementById('submit-btn-text');
+        const submitSpinner = document.getElementById('submit-spinner');
+        const formError = document.getElementById('form-error');
+        
+        const openModal = () => {
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContainer.classList.remove('scale-95', 'opacity-0');
+            }, 10);
+        };
+
+        const closeModal = () => {
+            modalContainer.classList.add('scale-95', 'opacity-0');
+            modal.classList.add('opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modalFormContent.classList.remove('hidden');
+                modalSuccessContent.classList.add('hidden');
+                contactForm.reset();
+                formError.classList.add('hidden');
+            }, 300);
+        };
+
+        openModalBtn.addEventListener('click', openModal);
+        closeModalBtn.addEventListener('click', closeModal);
+        closeSuccessBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            formError.classList.add('hidden');
+            submitBtnText.textContent = '제출 중...';
+            submitSpinner.classList.remove('hidden');
+            submitBtn.disabled = true;
+
+            const formData = new FormData(contactForm);
+
+            fetch('send_mail.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    modalFormContent.classList.add('hidden');
+                    modalSuccessContent.classList.remove('hidden');
+                } else {
+                    throw new Error(data.message || '알 수 없는 오류가 발생했습니다.');
+                }
+            })
+            .catch(error => {
+                formError.textContent = '오류: ' + error.message;
+                formError.classList.remove('hidden');
+            })
+            .finally(() => {
+                submitBtnText.textContent = '제출하기';
+                submitSpinner.classList.add('hidden');
+                submitBtn.disabled = false;
+            });
+        });
+
+        // Charts
+        Chart.defaults.font.family = "'Noto Sans KR', sans-serif";
+        Chart.defaults.plugins.tooltip.backgroundColor = '#333';
+        Chart.defaults.plugins.tooltip.titleFont = { size: 14, weight: 'bold' };
+        Chart.defaults.plugins.tooltip.bodyFont = { size: 12 };
+        Chart.defaults.plugins.tooltip.padding = 10;
+        Chart.defaults.plugins.tooltip.cornerRadius = 8;
+        
+        const marketSizeCtx = document.getElementById('marketSizeChart').getContext('2d');
+        new Chart(marketSizeCtx, {
+            type: 'bar',
+            data: { labels: ['2023', '2024', '2025', '2026(E)', '2027(E)'], datasets: [{ label: '시장 규모 (십억 $)', data: [24.04, 25.91, 28.05, 30.82, 33.57], backgroundColor: 'rgba(99, 102, 241, 0.7)', borderColor: 'rgba(99, 102, 241, 1)', borderWidth: 1, borderRadius: 8, hoverBackgroundColor: 'rgba(99, 102, 241, 0.9)' }] },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, grid: { color: '#e5e7eb' } }, x: { grid: { display: false } } } }
+        });
+
+        const targetAudienceCtx = document.getElementById('targetAudienceChart').getContext('2d');
+        new Chart(targetAudienceCtx, {
+            type: 'doughnut',
+            data: { labels: ['신입 구직자', '경력 전환자', '유학생', '기타'], datasets: [{ label: '타겟 고객층', data: [45, 30, 15, 10], backgroundColor: ['rgba(99, 102, 241, 0.8)', 'rgba(45, 212, 191, 0.8)', 'rgba(245, 158, 11, 0.8)', 'rgba(239, 68, 68, 0.8)'], borderColor: '#fff', borderWidth: 4, hoverOffset: 10 }] },
+            options: { responsive: true, maintainAspectRatio: false, cutout: '60%', plugins: { legend: { position: 'bottom', labels: { padding: 20 } } } }
+        });
+
+        const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+        const gradient = revenueCtx.createLinearGradient(0, 0, 0, 300);
+        gradient.addColorStop(0, 'rgba(45, 212, 191, 0.5)');
+        gradient.addColorStop(1, 'rgba(45, 212, 191, 0)');
+        new Chart(revenueCtx, {
+            type: 'line',
+            data: { labels: ['2025(E)', '2026(E)', '2027(E)'], datasets: [{ label: '예상 매출 (억원)', data: [5, 30, 100], fill: true, backgroundColor: gradient, borderColor: '#2DD4BF', tension: 0.4, pointBackgroundColor: '#2DD4BF', pointBorderColor: '#fff', pointBorderWidth: 2, pointRadius: 6, pointHoverRadius: 8 }] },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, grid: { color: '#e5e7eb' } }, x: { grid: { display: false } } } }
+        });
+    });
     </script>
 </body>
 </html>
-
